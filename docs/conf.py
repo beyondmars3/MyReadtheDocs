@@ -64,10 +64,10 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 #
 from recommonmark.parser import CommonMarkParser
 
-source_parsers = {
-    '.md': CommonMarkParser,
-}
-source_suffix = ['.rst', '.md']
+# source_parsers = {
+#     '.md': CommonMarkParser,
+# }
+# source_suffix = ['.rst', '.md']
 
 # The short X.Y version.
 version = '0.1.0'
