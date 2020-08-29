@@ -14,7 +14,6 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
-
 # -- Project information -----------------------------------------------------
 
 project = 'MyReadtheDocs'
@@ -53,3 +52,24 @@ html_theme = 'alabaster'
 html_static_path = ['_static']
 
 master_doc = 'index'
+
+import sphinx_rtd_theme
+
+html_theme = "sphinx_rtd_theme"
+
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+
+# The suffix(es) of source filenames.
+# You can specify multiple suffix as a list of string:
+#
+from recommonmark.parser import CommonMarkParser
+
+source_parsers = {
+    '.md': CommonMarkParser,
+}
+source_suffix = ['.rst', '.md']
+
+# The short X.Y version.
+version = '0.1.0'
+# The full version, including alpha/beta/rc tags.
+release = '0.1.0'

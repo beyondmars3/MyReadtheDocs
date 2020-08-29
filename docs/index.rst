@@ -10,6 +10,7 @@ Welcome to MyReadtheDocs's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   mds/test.md
 
 
 Indices and tables
