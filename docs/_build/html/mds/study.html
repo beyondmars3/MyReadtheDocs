@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>发布系统流程 &mdash; MyReadtheDocs 0.1.0 documentation</title>
+  <title>操作系统 &mdash; MyReadtheDocs 0.1.0 documentation</title>
   
 
   
@@ -36,8 +36,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="操作系统" href="study.html" />
-    <link rel="prev" title="Welcome to MyReadtheDocs’s documentation!" href="../index.html" /> 
+    <link rel="prev" title="发布系统流程" href="test.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -88,13 +87,13 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">发布系统流程</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#jenkins-ci">jenkins 构建ci</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#jenkins">jenkins 单元测试</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#jenkins-cd">jenkins 出发cd 部署</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">发布系统流程</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">操作系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cpu">cpu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">内存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">磁盘</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="study.html">操作系统</a></li>
 </ul>
 
             
@@ -141,13 +140,13 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>发布系统流程</li>
+      <li>操作系统</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/mds/test.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/mds/study.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -160,24 +159,33 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="id1">
-<h1>发布系统流程<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="jenkins-ci">
-<h2>jenkins 构建ci<a class="headerlink" href="#jenkins-ci" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">time</span>
-</pre></div>
+  <p>#面试题整理</p>
+<p>包括操作系统 | 数据结构 | 算法 | MYSQL | REDIS | PYTHON | JAVA | KAFKA</p>
+<div class="section" id="id1">
+<h1>操作系统<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="cpu">
+<h2>cpu<a class="headerlink" href="#cpu" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>进程可以理解位cpu的抽象 线程是cpu调度的最小单元</p></li>
+<li><p>cpu调度常用算法。 先来后到 最小执行时间</p></li>
+<li><p>共享/全局变量的隔离/互斥</p></li>
+<li><p>进程切换的代价， 首先保存当前进程的进程表，然后切换到新的地址空间。告诉缓存会失效</p>
+<p>进程切换的代价小很多，全局的变量不用保存。</p>
+</li>
+</ol>
 </div>
-</div>
-<div class="section" id="jenkins">
-<h2>jenkins 单元测试<a class="headerlink" href="#jenkins" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="jenkins-cd">
-<h2>jenkins 出发cd 部署<a class="headerlink" href="#jenkins-cd" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h2>内存<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
-<li><p>grovy 语法</p></li>
-<li><p>定义pipline</p></li>
+<li><p>地址空间是物理地址的抽象, 也就是虚拟地址。 虚拟内存技术</p></li>
+<li><p>分页/分段， 连续的空间。 最终映射到真是的物理内存地址上。</p></li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h2>磁盘<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>磁盘构成, 磁面 磁道 磁头 扇区</p></li>
+<li><p>一次读写的时间等于 寻到时间 + 旋转时间 + 传输时间</p></li>
 </ol>
 </div>
 </div>
@@ -190,10 +198,8 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="study.html" class="btn btn-neutral float-right" title="操作系统" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to MyReadtheDocs’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="test.html" class="btn btn-neutral float-left" title="发布系统流程" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
