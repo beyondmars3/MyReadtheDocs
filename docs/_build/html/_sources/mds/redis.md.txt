@@ -1,4 +1,4 @@
-# rdis
+# redis
 
  官方文档: http://www.redis.cn/
 
