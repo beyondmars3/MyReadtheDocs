@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; MyReadtheDocs 0.1.0 documentation</title>
+  <title>rdis &mdash; MyReadtheDocs 0.1.0 documentation</title>
   
 
   
@@ -35,7 +35,8 @@
 
     
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="操作系统" href="system.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -85,9 +86,17 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="test.html">发布系统流程</a></li>
-<li class="toctree-l1"><a class="reference internal" href="study.html">操作系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="system.html">操作系统</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">rdis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">特点</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">常用结构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#key">key删除策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">内存淘汰策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">持久化</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -134,7 +143,7 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>&lt;no title&gt;</li>
+      <li>rdis</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -153,12 +162,61 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  
+  <div class="section" id="rdis">
+<h1>rdis<a class="headerlink" href="#rdis" title="Permalink to this headline">¶</a></h1>
+<p>官方文档: http://www.redis.cn/</p>
+<div class="section" id="id1">
+<h2>特点<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>数据结构简单，读写效率高。</p></li>
+<li><p>单线程，避免了cpu切换，</p></li>
+<li><p>io多路复用</p></li>
+</ol>
+</div>
+<div class="section" id="id2">
+<h2>常用结构<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>string</p></li>
+<li><p>list</p></li>
+<li><p>hash</p></li>
+<li><p>set</p></li>
+<li><p>zset</p></li>
+</ol>
+</div>
+<div class="section" id="key">
+<h2>key删除策略<a class="headerlink" href="#key" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>key 删除 主动和被动。 主动是访问是否触发检测，被动是每隔100ms随机取一些key，检测过期则删除</p></li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h2>内存淘汰策略<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>当内存不够用时，随机删除或者报错</p></li>
+<li><p>删除最近使用最少的key，有算法的</p></li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h2>持久化<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>rdb 对数据做快照 。 如save 900 1 表示900s内如果有1条是写入命令，就触发产生一次快照，</p></li>
+<li><p>AOF 记录写的操作。</p></li>
+</ol>
+</div>
+</div>
+
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="system.html" class="btn btn-neutral float-left" title="操作系统" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

@@ -11,7 +11,8 @@ Welcome to MyReadtheDocs's documentation!
    :caption: Contents:
 
    mds/test.md
-   mds/study.md
+   mds/system.md
+   mds/redis.md
 
 
 Indices and tables
