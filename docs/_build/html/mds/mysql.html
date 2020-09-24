@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>redis &mdash; 学习笔记 0.1.0 documentation</title>
+  <title>mysql &mdash; 学习笔记 0.1.0 documentation</title>
   
 
   
@@ -36,8 +36,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="mysql" href="mysql.html" />
-    <link rel="prev" title="操作系统" href="system.html" /> 
+    <link rel="prev" title="redis" href="redis.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -89,16 +88,16 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="system.html">操作系统</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">redis</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">特点</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">常用结构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#key">key删除策略</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">内存淘汰策略</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">持久化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#scan">scan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="redis.html">redis</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">mysql</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#mysqlbinlog">mysqlbinlog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">事务隔离级别</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">事务特征</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">锁</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">三大范式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">索引</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="mysql.html">mysql</a></li>
 </ul>
 
             
@@ -145,13 +144,13 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>redis</li>
+      <li>mysql</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/mds/redis.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/mds/mysql.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -164,51 +163,66 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="redis">
-<h1>redis<a class="headerlink" href="#redis" title="Permalink to this headline">¶</a></h1>
-<p>官方文档: http://www.redis.cn/</p>
-<div class="section" id="id1">
-<h2>特点<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="mysql">
+<h1>mysql<a class="headerlink" href="#mysql" title="Permalink to this headline">¶</a></h1>
 <ol class="simple">
-<li><p>数据结构简单，读写效率高。</p></li>
-<li><p>单线程，避免了cpu切换，</p></li>
-<li><p>io多路复用</p></li>
+<li><p>官方文档： https://dev.mysql.com/doc/refman/5.7/en/</p></li>
+<li><p>中文： https://www.mysqlzh.com/</p></li>
+</ol>
+<div class="section" id="mysqlbinlog">
+<h2>mysqlbinlog<a class="headerlink" href="#mysqlbinlog" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>MySQL主从复制：MySQL Replication在Master端开启binlog，Master把它的二进制日志传递给slaves来达到
+master-slave数据一致的目的。</p></li>
+<li><p>自然就是数据恢复了，通过使用mysqlbinlog工具来使恢复数据。</p></li>
+</ol>
+</div>
+<div class="section" id="id1">
+<h2>事务隔离级别<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>未提交读（脏读）</p></li>
+<li><p>默认是 可重复读</p></li>
+<li><p>事务隔离级别，实现原理是</p></li>
+<li><p>mvcc 多版本控制 事务开始的时候做一个快照，每一行记录会有多个版本</p></li>
 </ol>
 </div>
 <div class="section" id="id2">
-<h2>常用结构<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>事务特征<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
-<li><p>string</p></li>
-<li><p>list</p></li>
-<li><p>hash</p></li>
-<li><p>set</p></li>
-<li><p>zset</p></li>
-</ol>
-</div>
-<div class="section" id="key">
-<h2>key删除策略<a class="headerlink" href="#key" title="Permalink to this headline">¶</a></h2>
-<ol class="simple">
-<li><p>key 删除 主动和被动。 主动是访问是否触发检测，被动是每隔100ms随机取一些key，检测过期则删除</p></li>
+<li><p>事务是 一组操作抽象的逻辑单元</p></li>
+<li><p>特征是 acid。 原子性，隔离性，一致性，持久性</p></li>
 </ol>
 </div>
 <div class="section" id="id3">
-<h2>内存淘汰策略<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2>锁<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
-<li><p>当内存不够用时，随机删除或者报错</p></li>
-<li><p>删除最近使用最少的key，有算法的</p></li>
+<li><p>共享锁S 可以并发的读，但不能并发写 select … lock in share mode:</p></li>
+<li><p>排他锁 select … for update</p></li>
+<li><p>间隙锁</p></li>
+<li><p>是么时候加锁，insert、delete和update都是会加排它锁(Exclusive Locks)的，而select只有显式声明才会加锁</p></li>
 </ol>
 </div>
 <div class="section" id="id4">
-<h2>持久化<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2>三大范式<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
-<li><p>rdb 对数据做快照 。 如save 900 1 表示900s内如果有1条是写入命令，就触发产生一次快照，</p></li>
-<li><p>AOF 记录写的操作。</p></li>
+<li><p>表的字段单一属性，不可以再拆分</p></li>
+<li><p>确保表中的每列都和主键相关</p></li>
+<li><p>每列都与主键有直接关系，不存在传递依赖，非主键字段不能相互依赖</p></li>
 </ol>
 </div>
-<div class="section" id="scan">
-<h2>scan<a class="headerlink" href="#scan" title="Permalink to this headline">¶</a></h2>
-<ol class="simple">
-<li><p>基于游标迭代数据库的所有键key，可以按模式匹配</p></li>
+<div class="section" id="id5">
+<h2>索引<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>参考 https://tech.meituan.com/2014/06/30/mysql-index.html</p></li>
+<li><p>真实的情况是，3层的b+树可以表示上百万的数据，如果上百万的数据查找只需要三次IO，性能提高将是巨大的，如果没有索引，每个数据项都要发生一次IO，那么总共需要百万次的IO，显然成本非常非常高.</p></li>
+<li><p>建索引的几大原则：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>1. 最左前缀匹配原则. mysql会一直向右匹配直到遇到范围查询(&gt;、&lt;、between、like)就停止匹配
+2. 尽量选择区分度高的列作为索引
+3. 索引列不能参与计算
+</pre></div>
+</div>
+</li>
+<li><p>explain 查询优化神器 rows是核心指标</p></li>
 </ol>
 </div>
 </div>
@@ -221,10 +235,8 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="mysql.html" class="btn btn-neutral float-right" title="mysql" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="system.html" class="btn btn-neutral float-left" title="操作系统" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="redis.html" class="btn btn-neutral float-left" title="redis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -1,0 +1,270 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>python &mdash; 学习笔记 0.1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> 学习笔记
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="system.html">操作系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="redis.html">redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mysql.html">mysql</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">学习笔记</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>python</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/mds/python.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="python">
+<h1>python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>线程<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>threading 类 t = threading.Thread()</p></li>
+<li><p>线程锁 threading.lock</p></li>
+<li><p>线程内部的私有变量 threading.local()</p></li>
+</ol>
+</div>
+<div class="section" id="id2">
+<h2>进程<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>multiprocessing 类</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Process</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">run_proc</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,))</span>
+<span class="n">p</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">p</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>进程池 用 Pool</p></li>
+<li><p>进程间通信用 Queue 。 from multiprocessing import Process, Queue</p></li>
+<li><p>线程内部隔离的类全局变量 threading.local()</p></li>
+</ol>
+</div>
+<div class="section" id="io">
+<h2>异步IO<a class="headerlink" href="#io" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>asyncio 直接内置了异步IO实现</p></li>
+<li><p>asyncio的编程模型就是一个消息循环。我们从asyncio模块中直接获取一个EventLoop的引用，然后把需要执行的协程扔到EventLoop中执行，就实现了异步IO。</p></li>
+<li><p>async/await 是python 3.5 对asyncio 的简写</p></li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h2>引用传递<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>对不可变对象，是值传递。 可变对象是引用传递</p></li>
+</ol>
+</div>
+<div class="section" id="flask">
+<h2>flask 请求上下文<a class="headerlink" href="#flask" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>当接收一个请求，flask会将这个请求的所有相关信息进行打包，打包形成的环境称为“请求上下文”(request context)。存放在堆栈中</p></li>
+<li><p>获取程序上下文对象 current_app、 g</p></li>
+<li><p>获取请求上下文对象 request、session</p></li>
+</ol>
+</div>
+<div class="section" id="uwsgi">
+<h2>uWsgi<a class="headerlink" href="#uwsgi" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>uwsgi yourfile.ini</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">uwsgi</span><span class="p">]</span>
+<span class="n">socket</span> <span class="o">=</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">3031</span>
+<span class="n">chdir</span> <span class="o">=</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">foobar</span><span class="o">/</span><span class="n">myproject</span><span class="o">/</span>
+<span class="n">wsgi</span><span class="o">-</span><span class="n">file</span> <span class="o">=</span> <span class="n">myproject</span><span class="o">/</span><span class="n">wsgi</span><span class="o">.</span><span class="n">py</span>
+<span class="n">processes</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">threads</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">stats</span> <span class="o">=</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">9191</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, xiao
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

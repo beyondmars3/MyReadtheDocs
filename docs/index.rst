@@ -10,9 +10,9 @@ Welcome to MyReadtheDocs's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   mds/test.md
    mds/system.md
    mds/redis.md
+   mds/mysql.md
 
 
 Indices and tables

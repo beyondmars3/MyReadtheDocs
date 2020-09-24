@@ -16,7 +16,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'MyReadtheDocs'
+project = '学习笔记'
 copyright = '2020, xiao'
 author = 'xiao'
 
