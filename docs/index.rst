@@ -13,6 +13,7 @@ Welcome to MyReadtheDocs's documentation!
    mds/system.md
    mds/redis.md
    mds/mysql.md
+   mds/sort.md
 
 
 Indices and tables
