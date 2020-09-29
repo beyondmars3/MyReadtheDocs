@@ -36,6 +36,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="java" href="java.html" />
     <link rel="prev" title="mysql" href="mysql.html" /> 
 </head>
 
@@ -94,8 +95,13 @@
 <li class="toctree-l2"><a class="reference internal" href="#id2">快速排序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id3">冒泡排序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id4">选择排序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">找出最小的不重复的子字符串和长度 – 滚动窗口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">斐波那契</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="java.html">java</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linux.html">linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">python</a></li>
 </ul>
 
             
@@ -285,6 +291,44 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="id5">
+<h2>找出最小的不重复的子字符串和长度 – 滚动窗口<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>比如在 “abcdaebf” 找到 最长的子串 “cdaebf”</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># data_str = &quot;rgflkafmngoDALDPFKMACr&quot;.lower()</span>
+    <span class="n">data_str</span> <span class="o">=</span> <span class="s2">&quot;abcdaebf&quot;</span>
+
+    <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">res_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">while</span> <span class="n">end</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_str</span><span class="p">):</span>
+        <span class="n">last</span> <span class="o">=</span> <span class="n">res_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">data_str</span><span class="p">[</span><span class="n">end</span><span class="p">])</span>
+        <span class="n">res_dict</span><span class="p">[</span><span class="n">data_str</span><span class="p">[</span><span class="n">end</span><span class="p">]]</span> <span class="o">=</span> <span class="n">end</span>
+        <span class="c1"># 重复的时候,左边界加一</span>
+        <span class="k">if</span> <span class="n">last</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">last</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_str</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">end</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">max_len</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+        <span class="n">max_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_len</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="n">res</span><span class="p">,</span> <span class="n">max_len</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>斐波那契<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 
 
@@ -294,6 +338,8 @@
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="java.html" class="btn btn-neutral float-right" title="java" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="mysql.html" class="btn btn-neutral float-left" title="mysql" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -14,6 +14,9 @@ Welcome to MyReadtheDocs's documentation!
    mds/redis.md
    mds/mysql.md
    mds/sort.md
+   mds/java.md
+   mds/linux.md
+   mds/python.md
 
 
 Indices and tables

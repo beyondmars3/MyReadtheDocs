@@ -97,9 +97,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#id3">锁</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id4">三大范式</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id5">索引</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">一致性非锁定读和一致性锁定读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">死锁产生和解决</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sort.html">排序</a></li>
+<li class="toctree-l1"><a class="reference internal" href="java.html">java</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linux.html">linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">python</a></li>
 </ul>
 
             
@@ -214,17 +219,28 @@ master-slave数据一致的目的。</p></li>
 </div>
 <div class="section" id="id5">
 <h2>索引<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<ol>
+<ol class="simple">
 <li><p>参考 https://tech.meituan.com/2014/06/30/mysql-index.html</p></li>
 <li><p>真实的情况是，3层的b+树可以表示上百万的数据，如果上百万的数据查找只需要三次IO，性能提高将是巨大的，如果没有索引，每个数据项都要发生一次IO，那么总共需要百万次的IO，显然成本非常非常高.</p></li>
-<li><p>建索引的几大原则：</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>1. 最左前缀匹配原则. mysql会一直向右匹配直到遇到范围查询(&gt;、&lt;、between、like)就停止匹配
-2. 尽量选择区分度高的列作为索引
-3. 索引列不能参与计算
+<li><p>建索引的几大原则：</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    1. 最左前缀匹配原则. mysql会一直向右匹配直到遇到范围查询(&gt;、&lt;、between、like)就停止匹配
+    2. 尽量选择区分度高的列作为索引
+    3. 索引列不能参与计算
 </pre></div>
 </div>
-</li>
+<ol class="simple">
 <li><p>explain 查询优化神器 rows是核心指标</p></li>
+</ol>
+</div>
+<div class="section" id="id6">
+<h2>一致性非锁定读和一致性锁定读<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id7">
+<h2>死锁产生和解决<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>相互等待锁的释放</p></li>
+<li><p>加锁顺序不一致</p></li>
 </ol>
 </div>
 </div>

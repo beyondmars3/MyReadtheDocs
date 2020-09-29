@@ -113,3 +113,39 @@ def xuanze_sort():
     run(arr)
     print(arr)
 ```
+
+## 找出最小的不重复的子字符串和长度 -- 滚动窗口
+1. 比如在 "abcdaebf" 找到 最长的子串 "cdaebf"
+
+```python
+def main():
+    """
+
+    :return:
+    """
+    # data_str = "rgflkafmngoDALDPFKMACr".lower()
+    data_str = "abcdaebf"
+
+    start, end = 0, 0
+    res = []
+    res_dict = {}
+
+    while end < len(data_str):
+        last = res_dict.get(data_str[end])
+        res_dict[data_str[end]] = end
+        # 重复的时候,左边界加一
+        if last is not None:
+            start = last + 1
+        else:
+            res.append(data_str[start:end+1])
+        end += 1
+
+    max_len = 0
+    for r in res:
+        max_len = max(max_len, len(r))
+    
+    return res, max_len
+```
+
+## 斐波那契
+
