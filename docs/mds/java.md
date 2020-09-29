@@ -8,3 +8,14 @@
 1. 实现Spring Cloud的服务发现功能
 
 
+## 设计模式
+
+
+## spring
+1. spring bean 加载原理
+
+
+## 算法
+
+
+## 设计模式
