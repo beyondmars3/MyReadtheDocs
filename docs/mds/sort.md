@@ -149,3 +149,94 @@ def main():
 
 ## 斐波那契
 
+```python
+def feibonaqi(n):
+    """
+    1, 2, 3, 4, 5, 6, 7, 8
+    1, 1, 2, 3, 5, 8, 13, 21
+    :return:
+    """
+    res = [1, 1]
+    count = 0
+    if n > 2:
+        while count < n:
+            res.append(res[count - 1] + res[count - 2])
+            count += 1
+
+    print(res)
+    return res
+```
+
+## 单链表
+
+<details>
+  <summary>单链表python实现</summary>
+  
+    ```python
+    
+    def test():
+        """
+    
+        :return:
+        """
+    
+        class Node:
+            """
+    
+            """
+    
+            def __init__(self, val):
+                self.val = val
+                self.next = None
+    
+        class Tree:
+    
+            def __init__(self):
+                self.head = None
+    
+            def add(self, val):
+                _node = Node(val)
+                if not self.head:
+                    self.head = _node
+                    return
+                root = self.head
+                q = [root]
+                while 1:
+                    c_node = q.pop(0)
+                    # 如果当前节点有下一个节点，则遍历直到最后，否则给下一个赋值
+                    if c_node.next is None:
+                        c_node.next = _node
+                        return
+                    q.append(c_node.next)
+    
+            def loop(self):
+                """
+    
+                :return:
+                """
+                root = self.head
+                res = []
+    
+                q = [root]
+                while 1:
+                    _temp = q.pop()
+                    if not _temp.next:
+                        break
+    
+                    q.append(_temp.next)
+                    print(_temp.val)
+                    res.append(_temp)
+    
+                return res
+    
+        t = Tree()
+        t.add(1)
+        t.add(2)
+        t.add(3)
+        t.add(4)
+        t.add(5)
+        t.add(6)
+    
+        t.loop()
+    ```
+</details>
