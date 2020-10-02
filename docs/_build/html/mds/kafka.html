@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>操作系统 &mdash; 学习笔记 0.1.0 documentation</title>
+  <title>kafka &mdash; 学习笔记 0.1.0 documentation</title>
   
 
   
@@ -35,9 +35,7 @@
 
     
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="redis" href="redis.html" />
-    <link rel="prev" title="Welcome to MyReadtheDocs’s documentation!" href="../index.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,14 +85,8 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">操作系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#cpu">cpu</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">内存</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">磁盘</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">同步 阻塞 区别</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="system.html">操作系统</a></li>
 <li class="toctree-l1"><a class="reference internal" href="redis.html">redis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mysql.html">mysql</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sort.html">排序</a></li>
@@ -148,13 +140,13 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>操作系统</li>
+      <li>kafka</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/mds/system.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/mds/kafka.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -167,42 +159,36 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="id1">
-<h1>操作系统<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>面试题整理</p>
-<p>包括操作系统 | 数据结构 | 算法 | MYSQL | REDIS | PYTHON | JAVA | KAFKA</p>
-<div class="section" id="cpu">
-<h2>cpu<a class="headerlink" href="#cpu" title="Permalink to this headline">¶</a></h2>
-<ol>
-<li><p>进程可以理解位cpu的抽象 线程是cpu调度的最小单元</p></li>
-<li><p>cpu调度常用算法。 先来后到 最小执行时间</p></li>
-<li><p>共享/全局变量的隔离/互斥</p></li>
-<li><p>进程切换的代价， 首先保存当前进程的进程表，然后切换到新的地址空间。告诉缓存会失效</p>
-<p>进程切换的代价小很多，全局的变量不用保存。</p>
-</li>
+  <div class="section" id="kafka">
+<h1>kafka<a class="headerlink" href="#kafka" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="ack">
+<h2>ack<a class="headerlink" href="#ack" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>生产者发送消息的时候，确保发送消息不丢失</p></li>
+<li><p>0: Producer 不等待 Broker 的 ACK</p></li>
+<li><p>1: Partition 的 Leader 落盘成功后返回 ACK</p></li>
+<li><p>-1: Partition 的 Leader 和 Follower 全部落盘成功后才返回 ACK</p></li>
 </ol>
 </div>
-<div class="section" id="id2">
-<h2>内存<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="follower-leader">
+<h2>Follower Leader<a class="headerlink" href="#follower-leader" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
-<li><p>地址空间是物理地址的抽象, 也就是虚拟地址。 虚拟内存技术</p></li>
-<li><p>分页/分段， 连续的空间。 最终映射到真是的物理内存地址上。</p></li>
+<li><p>每个分区都有若干个副本，一个 Leader 和若干个 Follower。</p></li>
+<li><p>生产者发送数据的对象，以及消费者消费数据的对象，都是 Leader</p></li>
 </ol>
 </div>
-<div class="section" id="id3">
-<h2>磁盘<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="isr">
+<h2>ISR<a class="headerlink" href="#isr" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
-<li><p>磁盘构成, 磁面 磁道 磁头 扇区</p></li>
-<li><p>一次读写的时间等于 寻道时间 + 旋转时间 + 传输时间</p></li>
-<li><p>操作系统一次读取io会预读</p></li>
+<li><p>和 Leader 保持同步的 Follower 集合。</p></li>
+<li><p>当 ISR 集合中的 Follower 完成数据的同步之后，Leader 就会给 Follower 发送 ACK。</p></li>
 </ol>
+<p>如果 Follower 长时间未向 Leader 同步数据，则该 Follower 将被踢出 ISR 集合，该时间阈值由 replica.lag.time.max.ms 参数设定。Leader 发生故障后，就会从 ISR 中选举出新的 Leader。</p>
 </div>
-<div class="section" id="id4">
-<h2>同步 阻塞 区别<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="exactly-once">
+<h2>Exactly Once 语义<a class="headerlink" href="#exactly-once" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
-<li><p>不是2个维度的表述。参考： https://www.zhihu.com/question/19732473</p></li>
-<li><p>阻塞是内核把用户程序挂起，非阻塞是数据没有准备好之前，内核/系统调用返回一直值。
-异步也是立马返回，而且等准备好了后，内核会通知用户程序的</p></li>
+<li></li>
 </ol>
 </div>
 </div>
@@ -212,15 +198,6 @@
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="redis.html" class="btn btn-neutral float-right" title="redis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to MyReadtheDocs’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

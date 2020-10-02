@@ -17,6 +17,7 @@ Welcome to MyReadtheDocs's documentation!
    mds/java.md
    mds/linux.md
    mds/python.md
+   mds/other.md
 
 
 Indices and tables
