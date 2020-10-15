@@ -18,6 +18,7 @@ Welcome to MyReadtheDocs's documentation!
    mds/linux.md
    mds/python.md
    mds/other.md
+   mds/docker.md
 
 
 Indices and tables

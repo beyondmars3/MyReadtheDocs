@@ -97,12 +97,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#id4">选择排序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id5">找出最小的不重复的子字符串和长度 – 滚动窗口</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id6">斐波那契</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">单链表</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="java.html">java</a></li>
 <li class="toctree-l1"><a class="reference internal" href="linux.html">linux</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python.html">python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="other.html">other</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">docker</a></li>
 </ul>
 
             
@@ -329,7 +331,97 @@
 </div>
 <div class="section" id="id6">
 <h2>斐波那契<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">feibonaqi</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    1, 2, 3, 4, 5, 6, 7, 8</span>
+<span class="sd">    1, 1, 2, 3, 5, 8, 13, 21</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">while</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="n">count</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">res</span><span class="p">[</span><span class="n">count</span> <span class="o">-</span> <span class="mi">2</span><span class="p">])</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
+</pre></div>
 </div>
+</div>
+<div class="section" id="id7">
+<h2>单链表<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<details>
+  <summary>单链表python实现</summary><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>```python
+
+def test():
+    &quot;&quot;&quot;
+
+    :return:
+    &quot;&quot;&quot;
+
+    class Node:
+        &quot;&quot;&quot;
+
+        &quot;&quot;&quot;
+
+        def __init__(self, val):
+            self.val = val
+            self.next = None
+
+    class Tree:
+
+        def __init__(self):
+            self.head = None
+
+        def add(self, val):
+            _node = Node(val)
+            if not self.head:
+                self.head = _node
+                return
+            root = self.head
+            q = [root]
+            while 1:
+                c_node = q.pop(0)
+                # 如果当前节点有下一个节点，则遍历直到最后，否则给下一个赋值
+                if c_node.next is None:
+                    c_node.next = _node
+                    return
+                q.append(c_node.next)
+
+        def loop(self):
+            &quot;&quot;&quot;
+
+            :return:
+            &quot;&quot;&quot;
+            root = self.head
+            res = []
+
+            q = [root]
+            while 1:
+                _temp = q.pop()
+                if not _temp.next:
+                    break
+
+                q.append(_temp.next)
+                print(_temp.val)
+                res.append(_temp)
+
+            return res
+
+    t = Tree()
+    t.add(1)
+    t.add(2)
+    t.add(3)
+    t.add(4)
+    t.add(5)
+    t.add(6)
+
+    t.loop()
+```
+</pre></div>
+</div>
+</details></div>
 </div>
 
 
