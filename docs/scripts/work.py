@@ -252,6 +252,11 @@ def maopao():
     run(a)
 
 
+def test():
+    import os
+    os.makedirs("/opt/a/b/c/d", exist_ok=True)
+
+
 if __name__ == '__main__':
     """ __main__ """
 
@@ -261,4 +266,6 @@ if __name__ == '__main__':
 
     # kuaipai()
 
-    maopao()
+    # maopao()
+
+    test()

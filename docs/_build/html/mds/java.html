@@ -93,12 +93,11 @@
 <li class="toctree-l1"><a class="reference internal" href="mysql.html">mysql</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sort.html">排序</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">java</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#skywalking">SkyWalking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#eureka">Eureka</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">设计模式</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#spring">spring</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">设计模式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#jvm">JVM 内存布局</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">对象的布局和内存组成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">垃圾回收</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">标记清除算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">分代收集算法</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="linux.html">linux</a></li>
@@ -172,32 +171,112 @@
             
   <div class="section" id="java">
 <h1>java<a class="headerlink" href="#java" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="skywalking">
-<h2>SkyWalking<a class="headerlink" href="#skywalking" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="jvm">
+<h2>JVM 内存布局<a class="headerlink" href="#jvm" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>参考: https://www.cnblogs.com/scofield-1987/p/7502969.html</p></li>
+</ul>
 <ol class="simple">
-<li><p>它是一款优秀的国产 APM(应用性能管理) 工具，包括了分布式追踪、性能指标分析、应用和服务依赖分析等。</p></li>
+<li><p>heap堆</p></li>
 </ol>
-</div>
-<div class="section" id="eureka">
-<h2>Eureka<a class="headerlink" href="#eureka" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>new 出来的对象</p></li>
+<li><p>新生代/老年代/永久代</p></li>
+<li><p>新生代中又分成了两部分Eden区和Survivor区</p></li>
+<li><p>-Xms = 1024M -Xmx = 2048M; 表示JVM Heap的初始大小为1GB，最大可自动伸缩到2GB；</p></li>
+</ul>
 <ol class="simple">
-<li><p>实现Spring Cloud的服务发现功能</p></li>
+<li><p>方法区     class类信息,常量(常量池),静态变量,即时编译器编译后的代码</p></li>
 </ol>
+<ul class="simple">
+<li><p>在Hotspot JVM中，设计者使用“永久代”来实现方法区</p></li>
+<li><p>XX:MAXPermSize来设定永久代的内存上限。</p></li>
+</ul>
+<ol class="simple">
+<li><p>JVM栈（Java虚拟机栈）</p></li>
+</ol>
+<ul class="simple">
+<li><p>JVM栈是伴随着线程的产生而产生的，属于线程私有区域，生命周期和线程保持一致，所以，JVM的内存管理器对这部分内存无需管理；</p></li>
+<li><p>栈中有包含了多个栈帧. 主要保存方法的局部变量、操作数栈、动态链接、方法出口（reternAddress或者抛Exception）。</p></li>
+</ul>
 </div>
 <div class="section" id="id1">
-<h2>设计模式<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="spring">
-<h2>spring<a class="headerlink" href="#spring" title="Permalink to this headline">¶</a></h2>
+<h2>对象的布局和内存组成<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
-<li><p>spring bean 加载原理</p></li>
+<li><p>对象头(header),对象实例数据（Instance Data）和对齐填充（Padding)</p></li>
+<li><p>对象头又包含两部分内容：Markword和reference（类类型指针）</p></li>
+</ol>
+<ul class="simple">
+<li><p>Markword 存储的有 哈希码、GC分代年龄、偏向锁标记、线程持有的锁、偏向线程ID、偏向时间戳等。</p></li>
+</ul>
+<ol class="simple">
+<li><p>reference 用于指向对象的类的元数据的指针。 通过这个指针，JVM可以知道，这个对象是属于哪个类的实例对象。</p></li>
 </ol>
 </div>
 <div class="section" id="id2">
-<h2>算法<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>垃圾回收<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>引用计数</p></li>
+</ol>
+<ul class="simple">
+<li><p>对象头中分配一个空间来保存该对象被引用的次数（Reference Count). 为0时,会被回收.</p></li>
+<li><p>不属于严格意义上的”Stop-The-World”</p></li>
+<li><p>没法解决循环依赖</p></li>
+</ul>
+<ol class="simple">
+<li><p>可达性分析算法</p></li>
+</ol>
+<ul class="simple">
+<li><p>引用链(GC Roots)作为根节点,往下搜索路径。 当一个对象到GC Roots没有路径时,是不可达的</p></li>
+<li><p>成功解决,循环依赖</p></li>
+</ul>
+<ol class="simple">
+<li><p>GC Roots 的对象</p></li>
+</ol>
+<ul class="simple">
+<li><p>虚拟机栈(栈帧中得局部变量表)中引用的对象</p></li>
+<li><p>方法区中类静态属性引用的对象</p></li>
+<li><p>方法区的常量引用对象</p></li>
+</ul>
 </div>
 <div class="section" id="id3">
-<h2>设计模式<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2>标记清除算法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id4">
+<h2>分代收集算法<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>新生代</p></li>
+</ol>
+<ul class="simple">
+<li><p>尽可能快的回收掉那些短期的对象</p></li>
+<li><p>按照8:1:1  eden区和survivor0和survivor1 区</p></li>
+</ul>
+<ol class="simple">
+<li><p>老年代</p></li>
+</ol>
+<ul class="simple">
+<li><p>存放都是生命周期长的对象</p></li>
+<li><p>满时会触发Full gc</p></li>
+<li><p>内存大小是新生代的2倍</p></li>
+</ul>
+<ol class="simple">
+<li><p>永久代</p></li>
+</ol>
+<ul class="simple">
+<li><p>用来存放静态文件</p></li>
+</ul>
+<ol class="simple">
+<li><p>gc</p></li>
+</ol>
+<ul class="simple">
+<li><p>对新生代的回收，不影响老年代。 因为回收频繁，所以要求速度快</p></li>
+</ul>
+<ol class="simple">
+<li><p>full gc</p></li>
+</ol>
+<ul class="simple">
+<li><p>对整个堆回收，速度慢</p></li>
+</ul>
 </div>
 </div>
 
